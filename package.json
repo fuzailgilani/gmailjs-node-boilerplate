@@ -1,5 +1,5 @@
 {
-  "name": "gmailjs-node-boilerplate",
+  "name": "ChromeExtensionEmailTracker",
   "version": "1.0.0",
   "description": "",
   "main": "",
@@ -9,7 +9,7 @@
     "bundle": "browserify -o dist/extension.js src/extension.js",
     "build": "npm run stage && npm run bundle"
   },
-  "author": "Jostein kjønigsen",
+  "author": "Fuzail Gilani",
   "license": "ISC",
   "dependencies": {
     "gmail-js": "^0.6.13",

@@ -1,11 +1,11 @@
 {
     "manifest_version": 2,
-    "name": "GmailJS Node Boilerplate Extension",
-    "short_name": "gmailjsnode",
+    "name": "Chrome Extension Email Tracker",
+    "short_name": "chromeExtEmailTrack",
     "version": "1.0",
-    "author": "Jostein Kjønigsen <jostein@kjonigsen.net>",
+    "author": "Fuzail Gilani <fuzailgilani@gmail.com>",
 
-    "description": "A minimal extension which demonstrates how to create a extension with Gmail.JS and NodeJS-based bundling.",
+    "description": "Tracks emails sent by Gmail Web Client and proxies hyperlinks in outgoing emails.",
 
     "content_scripts": [
         {
