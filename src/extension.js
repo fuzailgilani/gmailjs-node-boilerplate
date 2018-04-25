@@ -7,17 +7,16 @@ function guid() {
       .substring(1);
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-
+}
 function getTrackingGIF(account, email, subject) {
 
   var imgURL = "https://www.google-analytics.com/collect?"
     + "v=1&t=event"
     + "&tid=" + account
-    + "&z="   + Math.round((new Date()).getTime()/1000).toString()
     + "&cid=" + guid()
     + "&ec=email"
     + "&ea=open"
-    + "&el=" + encodeURIComponent("sent to: " + email + "; subject: " + subject);
+    + "&el=blah";
 
   return "<img src='" + imgURL + "' width='1' height='1'/>";
 
@@ -35,4 +34,5 @@ gmail.observe.on("load", () => {
     console.log("Hello, " + userEmail + ". This is your extension talking!");
     let list = gmail.get.visible_emails();
     console.log(list.length);
+    console.log(getTrackingGIF("UA-118160763-1","example@example.com","test"));
 });
