@@ -8,15 +8,16 @@ function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
-function getTrackingGIF(account, email, subject) {
+function getTrackingGIF(account, eventDetails) {
 
-  var imgURL = "https://www.google-analytics.com/collect?"
-    + "v=1&t=event"
+  var imgURL = "https://ssl.google-analytics.com/collect?"
+    + "v=1"
     + "&tid=" + account
     + "&cid=" + guid()
+    + "&t=event"
     + "&ec=email"
     + "&ea=open"
-    + "&el=blah";
+    + "&el=" + encodeURIComponent(eventDetails);
 
   return "<img src='" + imgURL + "' width='1' height='1'/>";
 
@@ -34,5 +35,22 @@ gmail.observe.on("load", () => {
     console.log("Hello, " + userEmail + ". This is your extension talking!");
     let list = gmail.get.visible_emails();
     console.log(list.length);
-    console.log(getTrackingGIF("UA-118160763-1","example@example.com","test"));
+    console.log(getTrackingGIF("UA-118160763-1","test"));
+
+    gmail.observe.before('send_message', function(url, body, data, xhr){
+      var body_params = xhr.xhrParams.body_params;
+
+      //construct event label for Google Analytics event
+      let timeSent = new Date().toDateString();
+      let eventDetails = "Sent by: " + gmail.get.user_email() + "Subject: " + body_params.subject + " Time sent: " + timeSent + " Email recipients: " + body_params.to;
+      console.log(eventDetails);
+
+      //create HTML for tracking GIF to be appended to email body
+      let gifHTML = getTrackingGIF("UA-118160763-1", eventDetails);
+      console.log(gifHTML);
+
+      //append tracking GIF to email before sending
+      body_params.body += gifHTML;
+      console.log("sending message, url:", url, 'body', body, 'email_data', data, 'xhr', xhr);
+    });
 });
